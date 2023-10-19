@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  # See https://hub.docker.com/_/mongo
+  # Use root/example as user/password credentials
+  mongo:
+    image: mongo:5.0
+    restart: always
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ${PWD}/db:/data/db
+    ports:
+      - 127.0.0.1:27017:27017
+    # See https://stackoverflow.com/questions/54384042/why-does-the-docker-compose-healthcheck-of-my-mongo-container-always-fail
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+  # See https://hub.docker.com/_/mongo-express
+  # mongo-express is a web-based MongoDB admin interface written in Node.js, Express.js, and Bootstrap3.
+  mongo-express:
+    image: mongo-express:1.0.0-alpha
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 127.0.0.1:8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    depends_on:
+      mongo:
+        condition: service_healthy
