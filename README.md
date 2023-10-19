@@ -8,10 +8,24 @@ See https://www.mongodb.com/docs/manual/administration/install-community/
 
 ### Option 2: Install MongoDB in the Docker Container
 
-Install docker first, then execute
+Install docker in your host first, then
 
 ```sh
 ./auto/up.sh
+```
+
+You could check the MongDB status via the [Mongo Express in local](http://localhost:8081/).
+
+Also you could connect the MongDB in CLI via
+
+```sh
+./auto/connect.sh
+```
+
+The container could be removed via
+
+```sh
+./auto/down.sh
 ```
 
 ## 2. Add `MongoDB.Driver` and Remove `Entity Framework Core` framework from your project
