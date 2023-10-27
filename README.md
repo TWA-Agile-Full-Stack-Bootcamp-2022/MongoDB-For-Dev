@@ -28,10 +28,17 @@ The container could be removed via
 ./auto/down.sh
 ```
 
-## 2. Add `MongoDB.Driver` and Remove `Entity Framework Core` framework from your project
+#### NOTE
+- If you want the Windows on Parallels be able to access the Mongo on your Mac:
+    - The network mode for virtual machine should be `Shared Networking`
+    - Access the Mongo on Windows via the IP `10.211.55.2`
 
-> Mongo doesn't need an ORM(Object Relational Mapper) framework. The Mongo driver takes typed C# objects and does all the serialization for you. So you'd have a IMongoCollection<SomeType> and then you can insert objects of that type into it, when you query them out again they;re returned as C# objects. So Mongo doesn't need an Object Relational Mapper because it doesn't store the data in a relational database. It serializes objects to bson (binary json) and stores then as a single document. So all you need is the Driver and you can put your objects in there and query them out again.
-> The MongoDB does have a Provider for Entity Framework Core but it's still in public preview, so we don't recommend using it.
+## 2. Use MongoDB in Your Project
+
+- [Create a RESTful API with .NET Core and MongoDB](https://www.mongodb.com/developer/languages/csharp/create-restful-api-dotnet-core-mongodb/)
+- [Create a web API with ASP.NET Core and MongoDB](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-mongo-app?view=aspnetcore-7.0&tabs=visual-studio-code)
+
+### 2.1. Add `MongoDB.Driver` and Remove `Entity Framework Core` framework from your project
 
 - (**Optional**)Remove the provider for `Entity Framework Core` framework
 
@@ -47,6 +54,13 @@ The `PROJECT_FOLDER` could be like `TWA-Agile-Full-Stack-Bootcamp/MiniBlog/MiniB
 ```sh
 dotnet add ${PROJECT_FOLDER} package MongoDB.Driver
 ```
+
+### 2.2 MongoDB Settings in your project
+
+### 2.3 ODM(Object-Document Mapper) for MongoDB in your project
+
+> Mongo doesn't need an ORM(Object Relational Mapper) framework. The Mongo driver takes typed C# objects and does all the serialization for you. So you'd have a IMongoCollection<SomeType> and then you can insert objects of that type into it, when you query them out again they;re returned as C# objects. So Mongo doesn't need an Object Relational Mapper because it doesn't store the data in a relational database. It serializes objects to bson (binary json) and stores then as a single document. So all you need is the Driver and you can put your objects in there and query them out again.
+> The MongoDB does have a Provider for Entity Framework Core but it's still in public preview, so we don't recommend using it.
 
 ## 3. MongoDB Schema Design
 
