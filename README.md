@@ -57,6 +57,39 @@ dotnet add ${PROJECT_FOLDER} package MongoDB.Driver
 
 ### 2.2 MongoDB Settings in your project
 
+Example:
+
+`./appsettings.json`
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "MongoDB": {
+    "ConnectionURI": "mongodb://root:example@localhost:27017/",
+    "DatabaseName": "sample_mflix",
+    "CollectionName": "playlist"
+  }
+}
+```
+
+`Models/MongoDBSettings.cs`
+```cs
+namespace MongoExample.Models;
+
+public class MongoDBSettings {
+
+    public string ConnectionURI { get; set; } = null!;
+    public string DatabaseName { get; set; } = null!;
+    public string CollectionName { get; set; } = null!;
+
+}
+```
+
 ### 2.3 ODM(Object-Document Mapper) for MongoDB in your project
 
 > Mongo doesn't need an ORM(Object Relational Mapper) framework. The Mongo driver takes typed C# objects and does all the serialization for you. So you'd have a IMongoCollection<SomeType> and then you can insert objects of that type into it, when you query them out again they;re returned as C# objects. So Mongo doesn't need an Object Relational Mapper because it doesn't store the data in a relational database. It serializes objects to bson (binary json) and stores then as a single document. So all you need is the Driver and you can put your objects in there and query them out again.
